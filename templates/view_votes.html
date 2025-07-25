@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Votes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px auto; /* Center content horizontally and vertically */
+            max-width: 600px; /* Limit container width */
+        }
+
+        h2 {
+            color: #4CAF50;
+        }
+
+        .button-container {
+            margin-top: 20px;
+        }
+
+        .button {
+            display: block; /* Make buttons stack vertically */
+            width: 100%; /* Make buttons take full container width */
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px 0; /* Add margin top and bottom */
+            text-decoration: none; /* Remove underline from links */
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <h2>Voting Results</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Party</th>
+                <th>Vote Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for party, count in results.items() %}
+                <tr>
+                    <td>{{ party }}</td>
+                    <td>{{ count }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('index') }}" class="button">Back to Home</a>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .error-message {
+            color: red;
+            font-size: 12px;
+            display: none; /* Initially hide the error message */
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="email"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        .back-to-home-container {
+            text-align: right; /* Align the content within the container to the right */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Register</h2>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class=flashes>
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+        <form method="POST" action="{{ url_for('register') }}">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <label for="aadhar">Aadhaar Number:</label>
+            <input type="text" id="aadhar" name="aadhar" required oninput="validateAadhar()">
+            <span class="error-message" id="aadharError"></span>
+
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" required oninput="validateAge()">
+            <span class="error-message" id="ageError"></span>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <button type="submit" class="button">Register</button>
+        </form>
+        <div class="back-to-home-container">
+            <a href="{{ url_for('index') }}" class="button" style="font-size: small;">Back to Home</a>
+        </div>
+    </div>
+
+    <script>
+        function validateAadhar() {
+            var aadharInput = document.getElementById("aadhar");
+            var aadharError = document.getElementById("aadharError");
+            var aadharValue = aadharInput.value;
+
+            if (aadharValue.length != 12) {
+                aadharError.textContent = "Aadhaar number must be 12 digits long.";
+                aadharError.style.display = "block";
+            } else {
+                aadharError.style.display = "none";
+            }
+        }
+
+        function validateAge() {
+            var ageInput = document.getElementById("age");
+            var ageError = document.getElementById("ageError");
+            var ageValue = parseInt(ageInput.value);
+
+            if (ageValue < 18) {
+                ageError.textContent = "You must be at least 18 years old.";
+                ageError.style.display = "block";
+            } else {
+                ageError.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>

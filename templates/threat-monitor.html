@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Threat Monitoring</title>
+</head>
+<body>
+
+<h1>STRIDE Threat Monitoring</h1>
+<button onclick="checkForThreats()">Check for Threats</button>
+
+<ul id="threat-list"></ul>
+
+<script>
+    function checkForThreats() {
+        // Array of threats as per the STRIDE model
+        const threats = [
+            "Spoofing",
+            "Tampering",
+            "Repudiation",
+            "Information Disclosure",
+            "Denial of Service",
+            "Elevation of Privilege"
+        ];
+
+        // Array to store detected threats
+        const detectedThreats = [];
+
+        // Simulate threat detection (you can customize this with real checks)
+        threats.forEach(threat => {
+            detectedThreats.push(`Monitoring for ${threat}`);
+        });
+
+        // Display the results on the webpage
+        const threatList = document.getElementById("threat-list");
+        threatList.innerHTML = ''; // Clear any previous results
+
+        detectedThreats.forEach(threatMessage => {
+            const li = document.createElement("li");
+            li.textContent = threatMessage;
+            threatList.appendChild(li);
+        });
+
+    }
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Voting System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px auto; /* Center content horizontally and vertically */
+            max-width: 600px; /* Limit container width */
+        }
+
+        h2 {
+            color: #4CAF50;
+        }
+
+        .button-container {
+            margin-top: 20px;
+        }
+
+        .button {
+            display: block; /* Make buttons stack vertically */
+            width: 100%; /* Make buttons take full container width */
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px 0; /* Add margin top and bottom */
+            text-decoration: none; /* Remove underline from links */
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Welcome to the Online Voting System</h2>
+    <p>Secure and Transparent Voting for Everyone</p>
+
+    <div class="button-container">
+        {% if session.get('logged_in') %}
+            <p>You are logged in as {{ session['aadhar'] }}</p>
+            <a href="{{ url_for('logout') }}" class="button">Logout</a>
+        {% else %}
+            <a href="{{ url_for('login') }}" class="button">Login</a>
+            <a href="{{ url_for('register') }}" class="button">Register</a>
+        {% endif %}
+        <a href="{{ url_for('cast_vote') }}" class="button">Cast Your Vote</a>
+        <a href="{{ url_for('view_votes') }}" class="button">View Votes</a>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="error-message">
+                {% for category, message in messages %}
+                    <p class="{{ category }}">{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+</body>
+</html>
